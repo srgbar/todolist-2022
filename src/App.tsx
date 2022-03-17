@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {TaskType, Todolist} from "./Todolist";
 import {v1} from "uuid";
+import {AddItemForm} from "./AddItemForm";
 
 export type FilterValuesType = "all" | "active" | "completed"
 
@@ -77,6 +78,19 @@ function App() {
         }
     }
 
+    function changeTaskTitle(id: string, newTitle: string, todolistId: string) {
+        // достанем нужный массив по todolistId
+        let todolistTasks = tasks[todolistId];
+        // найдем нужную таску
+        let task = todolistTasks.find(t => t.id === id);
+        // изменим таску если она нашлась
+        if (task) {
+            task.title = newTitle;
+            // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
+            setTasks({...tasks});
+        }
+    }
+
     function removeTodolist(id: string) {
         // засунем в стейт список тудулистов, id которых не равны тому, который нужно выкинуть
         setTodolists(todolists.filter(tl => tl.id != id));
@@ -86,8 +100,27 @@ function App() {
         setTasks({...tasks});
     }
 
+    function changeTodolistTitle(id: string, newTitle: string) {
+        const todolist = todolists.find(tl => tl.id === id);
+        if (todolist) {
+            todolist.title = newTitle;
+            setTodolists([...todolists])
+        }
+    }
+
+    function addTodolist(title: string) {
+        let newTodolistId = v1();
+        let newTodolist: TodolistType = {id: newTodolistId, title: title, filter: "all"}
+        setTodolists([newTodolist, ...todolists]);
+        setTasks({
+            ...tasks,
+            [newTodolistId]: []
+        })
+    }
+
     return (
         <div className="App">
+            <AddItemForm addItem={addTodolist}/>
             {
                 todolists.map(tl => {
                     let allTodolistTasks = tasks[tl.id];
@@ -110,6 +143,8 @@ function App() {
                                      changeTaskStatus={changeStatus}
                                      filter={tl.filter}
                                      removeTodolist={removeTodolist}
+                                     changeTodolistTitle={changeTodolistTitle}
+                                     changeTaskTitle={changeTaskTitle}
                     />
                 })
             }
