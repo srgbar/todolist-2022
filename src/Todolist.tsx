@@ -77,7 +77,7 @@ export const Todolist = (props: PropsType) => {
                 })
             }
         </div>
-        <div>
+        <div style={{paddingTop: "10px"}}>
             <Button variant={props.filter === "all" ? "outlined" : "text"}
                     onClick={onAllClickHandler}
                     color="default"
