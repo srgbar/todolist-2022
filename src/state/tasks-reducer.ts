@@ -1,6 +1,6 @@
 import {TasksStateType} from "../App";
 import {v1} from "uuid";
-import {AddTodolistActionType, RemoveTodolistActionType, todolistId1, todolistId2} from "./todolists-reducer";
+import {AddTodolistActionType, RemoveTodolistActionType} from "./todolists-reducer";
 
 export type RemoveTaskActionType = {
     type: 'REMOVE-TASK'
@@ -33,23 +33,23 @@ type ActionsType =
     | AddTodolistActionType
     | RemoveTodolistActionType
 
-// const initialState: TasksStateType = {}
+const initialState: TasksStateType = {}
 
-const initialState: TasksStateType = {
-    [todolistId1]: [
-        {id: v1(), title: "HTML&CSS", isDone: true},
-        {id: v1(), title: "JS", isDone: true},
-        {id: v1(), title: "ReactJS", isDone: true},
-        {id: v1(), title: "Redux", isDone: true},
-        {id: v1(), title: "Axios", isDone: false},
-    ],
-    [todolistId2]: [
-        {id: v1(), title: "Milk", isDone: true},
-        {id: v1(), title: "React Book", isDone: true}
-    ],
-}
+// const initialState: TasksStateType = {
+//     [todolistId1]: [
+//         {id: v1(), title: "HTML&CSS", isDone: true},
+//         {id: v1(), title: "JS", isDone: true},
+//         {id: v1(), title: "ReactJS", isDone: true},
+//         {id: v1(), title: "Redux", isDone: true},
+//         {id: v1(), title: "Axios", isDone: false},
+//     ],
+//     [todolistId2]: [
+//         {id: v1(), title: "Milk", isDone: true},
+//         {id: v1(), title: "React Book", isDone: true}
+//     ],
+// }
 
-type initialStateType = typeof initialState
+// type initialStateType = typeof initialState
 
 // меня вызовут и дадут мне стейт (почти всегда объект)
 // и инструкцию (action, тоже объект)
