@@ -15,9 +15,3 @@ AddItemFormsStories.args = {
     addItem: action("AddItemForm clicked")
 };
 
-// const callback = action("Button add was pressed inside the form");
-//
-// export const AddItemFormBaseExample = (props: any) => {
-//     return <AddItemForm addItem={callback}/>
-// }
-

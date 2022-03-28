@@ -8,7 +8,7 @@ const changeTaskTitleCallback = action("Change Task Title")
 const removeTaskCallback = action("Remove Task")
 
 export default {
-    title: 'TODOLIST/Task',
+    title: 'TODOLIST/Task Component',
     component: Task,
     args: {
         changeTaskStatus: changeTaskStatusCallback,
