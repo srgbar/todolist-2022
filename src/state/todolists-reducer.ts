@@ -1,5 +1,5 @@
-import {FilterValuesType, TodolistType} from "../App";
 import {v1} from "uuid";
+import {TodolistType} from "../api/todolists-api";
 
 export type RemoveTodolistActionType = {
     type: "REMOVE-TODOLIST"
@@ -21,35 +21,29 @@ export type ChangeTodoLIstFilterActionType = {
     filter: FilterValuesType
 }
 
+export type FilterValuesType = "all" | "active" | "completed"
+
+export type  TodolistDomainType = TodolistType & { filter: FilterValuesType }
+
 type ActionsType =
     RemoveTodolistActionType
     | AddTodolistActionType
     | ChangeTodoLIstTitleActionType
     | ChangeTodoLIstFilterActionType
 
-const initialState: Array<TodolistType> = []
-
-// export let todolistId1 = v1();
-// export let todolistId2 = v1();
-//
-// const initialState: Array<TodolistType> = [
-//     {id: todolistId1, title: "What to learn", filter: "all"},
-//     {id: todolistId2, title: "What to bye", filter: "all"},
-// ]
-
-// type initialStateType = typeof initialState
+const initialState: Array<TodolistDomainType> = []
 
 // меня вызовут и дадут мне стейт (почти всегда объект)
 // и инструкцию (action, тоже объект)
 // согласно прописаному type в этом action (инструкции) я поменяю state
-export const todolistsReducer = (state = initialState, action: ActionsType): Array<TodolistType> => {
+export const todolistsReducer = (state = initialState, action: ActionsType): Array<TodolistDomainType> => {
     switch (action.type) {
         case 'REMOVE-TODOLIST':
             return state.filter(tl => tl.id !== action.id)
         case 'ADD-TODOLIST':
             return [
                 ...state,
-                {id: action.todolistId, title: action.title, filter: "all"}
+                {id: action.todolistId, title: action.title, filter: "all", addedDate: "", order: 0}
             ]
         case 'CHANGE-TODOLIST-TITLE': {
             const todolist = state.find(tl => tl.id === action.id);
