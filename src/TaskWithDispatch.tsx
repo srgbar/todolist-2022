@@ -4,7 +4,7 @@ import {EditableSpan} from "./EditableSpan";
 import {Delete} from "@material-ui/icons";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
+import {removeTaskAC, updateTaskAC} from "./state/tasks-reducer";
 import {TaskStatuses, TaskType} from "./api/todolists-api";
 
 export type TaskPropsType = {
@@ -22,12 +22,12 @@ export const TaskWithDispatch = React.memo(((props: TaskPropsType) => {
 
         const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
             let newIsDoneValue = e.currentTarget.checked;
-            const action = changeTaskStatusAC(props.task.id, newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New, props.todolistId)
+            const action = updateTaskAC(props.task.id, {status: newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New}, props.todolistId)
             dispatch(action)
         }
 
         const changeTaskTitle = (newValue: string) => {
-            const action = changeTaskTitleAC(props.task.id, newValue, props.todolistId)
+            const action = updateTaskAC(props.task.id, {title: newValue}, props.todolistId)
             dispatch(action)
         }
 

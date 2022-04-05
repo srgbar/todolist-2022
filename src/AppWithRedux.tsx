@@ -5,15 +5,15 @@ import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
 import {
-    addTodolistAC,
+    addTodolistThunkTC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC,
+    changeTodolistTitleThunkTC,
     fetchTodolistsThunkTC,
     FilterValuesType,
-    removeTodolistAC,
+    removeTodolistThunkTC,
     TodolistDomainType
 } from "./state/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
+import {addTaskThunkTC, removeTaskThunkTC, updateTaskThunkTC} from "./state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 import {TaskStatuses, TaskType} from "./api/todolists-api";
@@ -32,38 +32,31 @@ function AppWithRedux() {
     }, [])
 
     const addTask = useCallback((title: string, todolistId: string) => {
-        const action = addTaskAC(title, todolistId)
-        dispatch(action)
+        dispatch(addTaskThunkTC(title, todolistId))
     }, [dispatch])
 
     const removeTask = useCallback((id: string, todolistId: string) => {
-        const action = removeTaskAC(id, todolistId)
-        dispatch(action)
+        dispatch(removeTaskThunkTC(todolistId, id))
     }, [dispatch])
 
     const changeStatus = useCallback((id: string, status: TaskStatuses, todolistId: string) => {
-        const action = changeTaskStatusAC(id, status, todolistId)
-        dispatch(action)
+        dispatch(updateTaskThunkTC(id, {status}, todolistId))
     }, [dispatch])
 
     const changeTaskTitle = useCallback((id: string, newTitle: string, todolistId: string) => {
-        const action = changeTaskTitleAC(id, newTitle, todolistId)
-        dispatch(action)
+        dispatch(updateTaskThunkTC(id, {title: newTitle}, todolistId))
     }, [dispatch])
 
     const removeTodolist = useCallback((id: string) => {
-        const action = removeTodolistAC(id)
-        dispatch(action)
+        dispatch(removeTodolistThunkTC(id))
     }, [dispatch])
 
     const addTodolist = useCallback((title: string) => {
-        const action = addTodolistAC(title)
-        dispatch(action)
+        dispatch(addTodolistThunkTC(title))
     }, [dispatch])
 
     const changeTodolistTitle = useCallback((id: string, title: string) => {
-        const action = changeTodolistTitleAC(id, title)
-        dispatch(action)
+        dispatch(changeTodolistTitleThunkTC(id, title))
     }, [dispatch])
 
     const changeFilter = useCallback((value: FilterValuesType, todolistId: string) => {
@@ -116,6 +109,6 @@ function AppWithRedux() {
     );
 }
 
-export default AppWithRedux;
+export default AppWithRedux
 
 
