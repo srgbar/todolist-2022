@@ -66,7 +66,7 @@ type UpdateTaskModelType = {
     deadline: string
 }
 
-export const todolistsApi = {
+export const todolistsAPI = {
     // Todolists
     getTodolists() {
         return instance.get<Array<TodolistType>>("todo-lists")
