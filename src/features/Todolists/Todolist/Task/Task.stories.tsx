@@ -2,7 +2,7 @@ import React from 'react';
 import {ComponentMeta, ComponentStory} from '@storybook/react';
 import {Task} from "./Task";
 import {action} from "@storybook/addon-actions";
-import {TaskPriorities, TaskStatuses} from "./api/todolists-api";
+import {TaskPriorities, TaskStatuses} from "../../../../api/todolists-api";
 
 const changeTaskStatusCallback = action("Change Task Status")
 const changeTaskTitleCallback = action("Change Task Title")
