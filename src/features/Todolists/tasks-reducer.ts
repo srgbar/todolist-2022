@@ -2,6 +2,7 @@ import {AddTodolistActionType, RemoveTodolistActionType, SetTodoLIstActionType} 
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from "../../api/todolists-api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../app/store";
+import {setErrorAC, SetErrorActionType, setStatusAC, SetStatusActionType} from "../../app/app-reducer";
 
 const initialState: TasksStateType = {}
 
@@ -51,10 +52,12 @@ export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) =>
     ({type: 'SET-TASKS', tasks, todolistId} as const)
 
 // thunks
-export const fetchTasksThunkTC = (todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
+export const fetchTasksThunkTC = (todolistId: string) => (dispatch: Dispatch<ActionsType | SetStatusActionType>) => {
+    dispatch(setStatusAC("loading"))
     todolistsAPI.getTasks(todolistId)
         .then((res) => {
             dispatch(setTasksAC(res.data.items, todolistId))
+            dispatch(setStatusAC("succeeded"))
         })
 }
 export const removeTaskThunkTC = (todolistId: string, id: string) => (dispatch: Dispatch<ActionsType>) => {
@@ -63,10 +66,21 @@ export const removeTaskThunkTC = (todolistId: string, id: string) => (dispatch: 
             dispatch(removeTaskAC(id, todolistId))
         })
 }
-export const addTaskThunkTC = (title: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
+export const addTaskThunkTC = (title: string, todolistId: string) => (dispatch: Dispatch<ActionsType | SetErrorActionType | SetStatusActionType>) => {
+    dispatch(setStatusAC("loading"))
     todolistsAPI.createTask(todolistId, title)
         .then((res) => {
-            dispatch(addTaskAC(res.data.data.item))
+            if (res.data.resultCode === 0) {
+                dispatch(addTaskAC(res.data.data.item))
+                dispatch(setStatusAC("succeeded"))
+            } else {
+                if (res.data.messages.length) {
+                    dispatch(setErrorAC(res.data.messages[0]))
+                } else {
+                    dispatch(setErrorAC("Some error occurred"))
+                }
+                dispatch(setStatusAC("failed"))
+            }
         })
 }
 export const updateTaskThunkTC = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string) =>

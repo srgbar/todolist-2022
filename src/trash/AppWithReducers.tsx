@@ -3,8 +3,6 @@ import '../app/App.css';
 import {Todolist} from "../features/Todolists/Todolist/Todolist";
 import {v1} from "uuid";
 import {AddItemForm} from "../components/AddItemForm/AddItemForm";
-import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
-import {Menu} from "@material-ui/icons";
 import {
     addTodolistAC,
     changeTodolistFilterAC,
@@ -14,6 +12,8 @@ import {
 } from "../features/Todolists/todolists-reducer";
 import {addTaskAC, removeTaskAC, tasksReducer, updateTaskAC} from "../features/Todolists/tasks-reducer";
 import {TaskPriorities, TaskStatuses, TaskType} from "../api/todolists-api";
+import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
+import {Menu} from "@mui/icons-material";
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
@@ -25,8 +25,8 @@ function AppWithReducers() {
     let todolistId2 = v1();
 
     let [todolists, dispatchToTodolists] = useReducer(todolistsReducer,[
-        {id: todolistId1, title: "What to learn", filter: "all", addedDate: "", order: 0},
-        {id: todolistId2, title: "What to bye", filter: "all", addedDate: "", order: 0},
+        {id: todolistId1, title: "What to learn", filter: "all", addedDate: "", order: 0, entityStatus: "idle"},
+        {id: todolistId2, title: "What to bye", filter: "all", addedDate: "", order: 0, entityStatus: "idle"},
     ]);
 
     let [tasks, dispatchToTasks] = useReducer(tasksReducer,{

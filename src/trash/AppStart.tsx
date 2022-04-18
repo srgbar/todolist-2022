@@ -3,23 +3,23 @@ import '../app/App.css';
 import {Todolist} from "../features/Todolists/Todolist/Todolist";
 import {v1} from "uuid";
 import {AddItemForm} from "../components/AddItemForm/AddItemForm";
-import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
-import {Menu} from "@material-ui/icons";
 import {TaskPriorities, TaskStatuses, TaskType} from "../api/todolists-api";
 import {FilterValuesType, TodolistDomainType} from "../features/Todolists/todolists-reducer";
+import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@mui/material';
+import {Menu} from "@mui/icons-material";
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
-function App() {
+function AppStart() {
 
     let todolistId1 = v1();
     let todolistId2 = v1();
 
     let [todolists, setTodolists] = useState<Array<TodolistDomainType>>([
-        {id: todolistId1, title: "What to learn", filter: "all", addedDate: "", order: 0},
-        {id: todolistId2, title: "What to bye", filter: "all", addedDate: "", order: 0},
+        {id: todolistId1, title: "What to learn", filter: "all", addedDate: "", order: 0, entityStatus: "idle"},
+        {id: todolistId2, title: "What to bye", filter: "all", addedDate: "", order: 0, entityStatus: "idle"},
     ]);
 
     let [tasks, setTasks] = useState<TasksStateType>({
@@ -105,7 +105,7 @@ function App() {
 
     function addTodolist(title: string) {
         let newTodolistId = v1();
-        let newTodolist: TodolistDomainType = {id: newTodolistId, title: title, filter: "all", addedDate: "", order: 0}
+        let newTodolist: TodolistDomainType = {id: newTodolistId, title: title, filter: "all", addedDate: "", order: 0, entityStatus: "idle"}
         setTodolists([newTodolist, ...todolists]);
         setTasks({
             ...tasks,
@@ -168,6 +168,6 @@ function App() {
     );
 }
 
-export default App;
+export default AppStart;
 
 

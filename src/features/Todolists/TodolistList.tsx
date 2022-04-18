@@ -12,9 +12,9 @@ import {
 } from "./todolists-reducer";
 import {addTaskThunkTC, removeTaskThunkTC, TasksStateType, updateTaskThunkTC} from "./tasks-reducer";
 import {TaskStatuses} from "../../api/todolists-api";
-import {Grid, Paper} from "@material-ui/core";
 import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
 import {Todolist} from "./Todolist/Todolist";
+import {Grid, Paper} from "@mui/material";
 
 export const TodolistsList: React.FC = () => {
 
