@@ -24,12 +24,56 @@ function AppStart() {
 
     let [tasks, setTasks] = useState<TasksStateType>({
         [todolistId1]: [
-            {id: v1(), title: "HTML&CSS", status: TaskStatuses.Completed, todoListId: todolistId1, description: "", startDate: "", deadline: "", addedDate: "", order: 0, priority: TaskPriorities.Low},
-            {id: v1(), title: "JS", status: TaskStatuses.Completed, todoListId: todolistId1, description: "", startDate: "", deadline: "", addedDate: "", order: 0, priority: TaskPriorities.Low}
+            {
+                id: v1(),
+                title: "HTML&CSS",
+                status: TaskStatuses.Completed,
+                todoListId: todolistId1,
+                description: "",
+                startDate: "",
+                deadline: "",
+                addedDate: "",
+                order: 0,
+                priority: TaskPriorities.Low
+            },
+            {
+                id: v1(),
+                title: "JS",
+                status: TaskStatuses.Completed,
+                todoListId: todolistId1,
+                description: "",
+                startDate: "",
+                deadline: "",
+                addedDate: "",
+                order: 0,
+                priority: TaskPriorities.Low
+            }
         ],
         [todolistId2]: [
-            {id: v1(), title: "Milk", status: TaskStatuses.Completed, todoListId: todolistId2, description: "", startDate: "", deadline: "", addedDate: "", order: 0, priority: TaskPriorities.Low},
-            {id: v1(), title: "React Book", status: TaskStatuses.Completed, todoListId: todolistId2, description: "", startDate: "", deadline: "", addedDate: "", order: 0, priority: TaskPriorities.Low}
+            {
+                id: v1(),
+                title: "Milk",
+                status: TaskStatuses.Completed,
+                todoListId: todolistId2,
+                description: "",
+                startDate: "",
+                deadline: "",
+                addedDate: "",
+                order: 0,
+                priority: TaskPriorities.Low
+            },
+            {
+                id: v1(),
+                title: "React Book",
+                status: TaskStatuses.Completed,
+                todoListId: todolistId2,
+                description: "",
+                startDate: "",
+                deadline: "",
+                addedDate: "",
+                order: 0,
+                priority: TaskPriorities.Low
+            }
         ],
     });
 
@@ -43,7 +87,18 @@ function AppStart() {
     }
 
     function addTask(title: string, todolistId: string) {
-        let task = {id: v1(), title: title, status: TaskStatuses.New, todoListId: todolistId, description: "", startDate: "", deadline: "", addedDate: "", order: 0, priority: TaskPriorities.Low};
+        let task = {
+            id: v1(),
+            title: title,
+            status: TaskStatuses.New,
+            todoListId: todolistId,
+            description: "",
+            startDate: "",
+            deadline: "",
+            addedDate: "",
+            order: 0,
+            priority: TaskPriorities.Low
+        };
         // достанем нужный массив по todolistId
         let todolistTasks = tasks[todolistId];
         // перезапишем в этом объекте массив для нужного тудулиста копией, добавив в начало новую таску
@@ -105,7 +160,14 @@ function AppStart() {
 
     function addTodolist(title: string) {
         let newTodolistId = v1();
-        let newTodolist: TodolistDomainType = {id: newTodolistId, title: title, filter: "all", addedDate: "", order: 0, entityStatus: "idle"}
+        let newTodolist: TodolistDomainType = {
+            id: newTodolistId,
+            title: title,
+            filter: "all",
+            addedDate: "",
+            order: 0,
+            entityStatus: "idle"
+        }
         setTodolists([newTodolist, ...todolists]);
         setTasks({
             ...tasks,
@@ -145,18 +207,16 @@ function AppStart() {
 
                             return <Grid item>
                                 <Paper style={{padding: "10px"}}>
-                                    <Todolist key={tl.id}
-                                              id={tl.id}
-                                              title={tl.title}
-                                              tasks={tasksForTodolist}
-                                              removeTask={removeTask}
-                                              changeFilter={changeFilter}
-                                              addTask={addTask}
-                                              changeTaskStatus={changeStatus}
-                                              filter={tl.filter}
-                                              removeTodolist={removeTodolist}
-                                              changeTodolistTitle={changeTodolistTitle}
-                                              changeTaskTitle={changeTaskTitle}
+                                    <Todolist
+                                        todolist={tl}
+                                        tasks={tasksForTodolist}
+                                        removeTask={removeTask}
+                                        changeFilter={changeFilter}
+                                        addTask={addTask}
+                                        changeTaskStatus={changeStatus}
+                                        removeTodolist={removeTodolist}
+                                        changeTodolistTitle={changeTodolistTitle}
+                                        changeTaskTitle={changeTaskTitle}
                                     />
                                 </Paper>
                             </Grid>

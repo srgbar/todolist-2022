@@ -9,9 +9,16 @@ export default {
 } as ComponentMeta<typeof AddItemForm>;
 
 const Template: ComponentStory<typeof AddItemForm> = (args) => <AddItemForm {...args} />;
+const TemplateDisabled: ComponentStory<typeof AddItemForm> = (args) => <AddItemForm {...args} />;
 
 export const AddItemFormsStories = Template.bind({});
 AddItemFormsStories.args = {
-    addItem: action("AddItemForm clicked")
+    addItem: action("AddItemForm clicked"),
+};
+
+export const AddItemFormsDisabledStories = TemplateDisabled.bind({});
+AddItemFormsDisabledStories.args = {
+    addItem: action("AddItemForm clicked"),
+    disabled: true
 };
 
